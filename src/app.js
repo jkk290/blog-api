@@ -9,6 +9,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-app.use('/', postsRouter);
+app.use('/posts', postsRouter);
 
 app.listen(PORT, () => console.log(`App listening on ${PORT}...`));
