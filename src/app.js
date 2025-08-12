@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.APP_PORT;
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 
 app.use('/posts', postsRouter);
