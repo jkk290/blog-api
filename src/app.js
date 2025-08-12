@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const postsRouter = require('./routes/postsRouter');
-const commentsRouter = require('./routes/commentsRouter');
 const usersRouter = require('./routes/usersRouter');
 
 const app = express();
@@ -12,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use('/posts', postsRouter);
-app.use('/comments', commentsRouter);
 app.use('/users', usersRouter);
 
 app.listen(PORT, () => console.log(`App listening on ${PORT}...`));

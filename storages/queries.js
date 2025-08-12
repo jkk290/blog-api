@@ -1,5 +1,6 @@
 const prisma = require('./prisma');
 
+// queries related to posts
 async function getPosts() {
     return await prisma.post.findMany();
 };
@@ -45,9 +46,54 @@ async function deletePosts(postId) {
     });
 };
 
+// queries related to comments
+async function getComments(postId) {
+    return await prisma.comment.findMany({
+        where: {
+            postId: postId
+        }
+    });
+};
+
+async function postComments(comment) {
+    const newComment = await prisma.comment.create({
+        data: {
+            text: comment.text,
+            commentAuthorId: comment.authorId,
+            postId: comment.postId
+        }
+    });
+
+    return newComment;
+};
+
+async function putComments(comment) {
+    const updatedComment = await prisma.comment.update({
+        where: {
+            id: comment.id
+        }, 
+        data: {
+            text: comment.text
+        }        
+    });
+    return updatedComment;
+};
+
+async function deleteComments(commentId) {
+    await prisma.comment.delete({
+        where: {
+            id: commentId
+        }
+    });
+};
+
 module.exports = {
     getPosts,
     postPosts,
     putPosts,
-    deletePosts
+    deletePosts,
+    getComments,
+    postComments,
+    putComments,
+    deleteComments
 };

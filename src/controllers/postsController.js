@@ -18,12 +18,11 @@ exports.postPosts = async (req, res) => {
 
     try {
         if ((req.body.postTitle === undefined) || (req.body.postTitle === '')) {
-            res.status(400).json({
+            return res.status(400).json({
                 error: {
                     message: 'Title is required'
                 }
             });
-            return;
         };
 
         const post = {
@@ -51,12 +50,11 @@ exports.postPosts = async (req, res) => {
 exports.putPosts = async (req, res) => {
     try {
         if ((req.body.postTitle === undefined) || (req.body.postTitle === '')) {
-            res.status(400).json({
+            return res.status(400).json({
                 error: {
                     message: 'Title is required'
                 }
             });
-            return;
         };
 
         const post = {
@@ -81,7 +79,7 @@ exports.putPosts = async (req, res) => {
             });
         };
 
-        return res.status(500).json({
+        res.status(500).json({
             error: {
                 message: 'Failed to update post'
             }
@@ -103,7 +101,7 @@ exports.deletePosts = async (req, res) => {
             });
         };
 
-        return res.status(500).json({
+        res.status(500).json({
             error: {
                 message: 'Failed to delete post'
             }
