@@ -15,7 +15,7 @@ postsRouter.post('/:postId/comments', requireAuth, commentsController.postCommen
 
 postsRouter.put('/:postId', requireAuth, postsController.putPosts);
 postsRouter.delete('/:postId', requireAuth, postsController.deletePosts);
-postsRouter.get('/', postsController.getPosts);
+postsRouter.get('/', postsController.getPublishedPosts);
 postsRouter.post('/', requireAuth, postsController.postPosts);
 
 module.exports = postsRouter;

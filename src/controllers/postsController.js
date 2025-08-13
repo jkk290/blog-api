@@ -1,8 +1,8 @@
 const db = require('../../storages/queries');
 
-exports.getPosts = async (req, res) => {
+exports.getPublishedPosts = async (req, res) => {
     try {
-        const posts = await db.getPosts();
+        const posts = await db.getPublishedPosts();
         res.json(posts);        
     } catch (error) {
         res.status(500).json({
