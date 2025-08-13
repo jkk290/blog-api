@@ -1,15 +1,14 @@
 const { Router } = require('express');
+const { requireAuth } = require('../auth/requireAuth');
 const usersController = require('../controllers/usersController');
 
 const usersRouter = Router();
 
-usersRouter.put('/:userId', usersController.putUsers);
+usersRouter.put('/:userId', requireAuth, usersController.putUsers);
 
-usersRouter.delete('/:userId', usersController.deleteUsers);
+usersRouter.delete('/:userId', requireAuth, usersController.deleteUsers);
 
-usersRouter.get('/', usersController.getUsers);
+usersRouter.get('/', requireAuth, usersController.getUsers);
 usersRouter.post('/', usersController.postUsers);
-
-
 
 module.exports = usersRouter;

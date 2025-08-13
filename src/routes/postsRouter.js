@@ -1,20 +1,21 @@
 const { Router } = require('express');
+const { requireAuth } = require('../auth/requireAuth');
 const postsController = require('../controllers/postsController');
 const commentsController = require('../controllers/commentsController');
 
 const postsRouter = Router();
 
-postsRouter.delete('/:postId/comments/:commentId', commentsController.deleteComments);
+postsRouter.delete('/:postId/comments/:commentId', requireAuth, commentsController.deleteComments);
 
-postsRouter.put('/:postId/comments/:commentId', commentsController.putComments);
+postsRouter.put('/:postId/comments/:commentId', requireAuth, commentsController.putComments);
 
 postsRouter.get('/:postId/comments', commentsController.getComments);
 
-postsRouter.post('/:postId/comments', commentsController.postComments);
+postsRouter.post('/:postId/comments', requireAuth, commentsController.postComments);
 
-postsRouter.put('/:postId', postsController.putPosts);
-postsRouter.delete('/:postId', postsController.deletePosts);
+postsRouter.put('/:postId', requireAuth, postsController.putPosts);
+postsRouter.delete('/:postId', requireAuth, postsController.deletePosts);
 postsRouter.get('/', postsController.getPosts);
-postsRouter.post('/', postsController.postPosts);
+postsRouter.post('/', requireAuth, postsController.postPosts);
 
 module.exports = postsRouter;
