@@ -1,16 +1,22 @@
 require('dotenv').config();
 const express = require('express');
+const passport = require('passport');
+const passportConfig = require('./auth/passport');
 const postsRouter = require('./routes/postsRouter');
 const usersRouter = require('./routes/usersRouter');
+const authRouter = require('./routes/authRouter');
 
 const app = express();
 const PORT = process.env.APP_PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+passportConfig();
+app.use(passport.initialize());
 
 
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
 
 app.listen(PORT, () => console.log(`App listening on ${PORT}...`));

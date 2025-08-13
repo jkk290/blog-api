@@ -93,6 +93,15 @@ async function getUsers() {
     return users;
 };
 
+async function getUserByUsername(username) {
+    const user = await prisma.user.findUnique({
+        where: {
+            username: username
+        }
+    });
+    return user;
+};
+
 async function getUserById(userId) {
     const user = await prisma.user.findUnique({
         where: {
@@ -151,6 +160,7 @@ module.exports = {
     putComments,
     deleteComments,
     getUsers,
+    getUserByUsername,
     getUserById,
     postUsers,
     putUsers,

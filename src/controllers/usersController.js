@@ -137,10 +137,7 @@ exports.putUsers = async (req, res) => {
             const storedUser = await db.getUserById(user.id);
 
             const storedPw = storedUser.password;
-            console.log('Stored pw: ', storedPw);
-            console.log('Current pw: ', currentPassword);
             const match = await bcrypt.compare(currentPassword, storedPw);
-            console.log('Match? ', match);
             if (!match) {
                 return res.status(400).json({
                     error: {
