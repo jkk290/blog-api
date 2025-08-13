@@ -1,5 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcryptjs');
 const db = require('../../storages/queries');
 
@@ -21,7 +23,18 @@ const passportConfig = () => {
             return done(error);
         };  
         })
-    )
+    );
+
+    const options = {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: process.env.JWT_SECRET
+    };
+
+    passport.use(
+        new JwtStrategy(options, (jwt_payload, done) => {
+            return done(null, jwt_payload);
+        })
+    );
 };
 
 module.exports = passportConfig;
