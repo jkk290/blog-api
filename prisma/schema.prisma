@@ -33,7 +33,7 @@ model Post {
   isPublished Boolean @default(false)
   createdAt DateTime @default(now())
   modifiedAt DateTime @updatedAt
-  postAuthor User @relation(fields: [postAuthorId], references: [id])
+  postAuthor User @relation(fields: [postAuthorId], references: [id], onDelete: Cascade)
   postAuthorId Int
   comments Comment[]
 }
@@ -42,8 +42,8 @@ model Comment {
   id Int @id @default(autoincrement())
   text String @db.Text
   createdAt DateTime @default(now())
-  commentAuthor User @relation(fields: [commentAuthorId], references: [id])
+  commentAuthor User @relation(fields: [commentAuthorId], references: [id], onDelete: Cascade)
   commentAuthorId Int
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId Int
 }
