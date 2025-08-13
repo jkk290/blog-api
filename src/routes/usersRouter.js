@@ -1,21 +1,15 @@
 const { Router } = require('express');
+const usersController = require('../controllers/usersController');
 
 const usersRouter = Router();
 
-usersRouter.get('/', (req, res) => res.json({
-    message: 'GET method on users'
-}));
+usersRouter.put('/:userId', usersController.putUsers);
 
-usersRouter.post('/', (req, res) => res.json({
-    message: 'POST method on users'
-}));
+usersRouter.delete('/:userId', usersController.deleteUsers);
 
-usersRouter.put('/:userId', (req, res) => res.json({
-    message: `PUT method on user ID ${req.params.userId}`
-}));
+usersRouter.get('/', usersController.getUsers);
+usersRouter.post('/', usersController.postUsers);
 
-usersRouter.delete('/:userId', (req, res) => res.json({
-    message: `DELETE method on user ID ${req.params.userId}`
-}));
+
 
 module.exports = usersRouter;

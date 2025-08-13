@@ -87,6 +87,60 @@ async function deleteComments(commentId) {
     });
 };
 
+// queries related to users
+async function getUsers() {
+    const users = await prisma.user.findMany();
+    return users;
+};
+
+async function getUserById(userId) {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId
+        }
+    });
+    return user;
+}
+
+async function postUsers(user) {
+    const newUser = await prisma.user.create({
+        data: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            username: user.username,
+            email: user.email,
+            password: user.password,
+            isAdmin: user.isAdmin
+        }
+    })
+    return newUser;
+};
+
+async function putUsers(user) {
+    const updateUser = await prisma.user.update({
+        where: {
+            id: user.id
+        },
+        data :{
+            firstName: user.firstName,
+            lastName: user.lastName,
+            username: user.username,
+            email: user.email,
+            password: user.password,
+            isAdmin: user.isAdmin
+        }
+    });
+    return updateUser;
+};
+
+async function deleteUsers(userId) {
+    await prisma.user.delete({
+        where: {
+            id: userId
+        }
+    });
+};
+
 module.exports = {
     getPosts,
     postPosts,
@@ -95,5 +149,10 @@ module.exports = {
     getComments,
     postComments,
     putComments,
-    deleteComments
+    deleteComments,
+    getUsers,
+    getUserById,
+    postUsers,
+    putUsers,
+    deleteUsers
 };
