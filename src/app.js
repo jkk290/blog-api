@@ -15,8 +15,8 @@ passportConfig();
 app.use(passport.initialize());
 
 
-app.use('/posts', postsRouter);
-app.use('/users', usersRouter);
-app.use('/auth', authRouter);
+app.use('/api/posts', postsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 
 app.listen(PORT, () => console.log(`App listening on ${PORT}...`));
