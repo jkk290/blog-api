@@ -5,6 +5,13 @@ async function getPublishedPosts() {
     return await prisma.post.findMany({
         where: {
             isPublished:  true
+        },
+        include: {
+            postAuthor: {
+                select: {
+                    username: true
+                }
+            }
         }
     });
 };
@@ -55,6 +62,13 @@ async function getComments(postId) {
     return await prisma.comment.findMany({
         where: {
             postId: postId
+        },
+        include: {
+            commentAuthor: {
+                select: {
+                    username: true
+                }
+            }
         }
     });
 };
