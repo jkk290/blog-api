@@ -13,6 +13,26 @@ exports.getPublishedPosts = async (req, res) => {
     };    
 };
 
+exports.getPost = async (req, res) => {
+    try {
+        const post = await db.getPostById(parseInt(req.params.postId));
+        if (!post) {
+            return res.status(404).json({
+                error: {
+                    message: `No post found with ID ${req.params.postId}`
+                }
+            });
+        }
+        res.json(post)
+    } catch (error) {
+        res.status(500).json({
+            error: {
+                message: 'Failed to retrieve post'
+            }
+        });
+    }
+}
+
 exports.postPosts = async (req, res) => {
     const userId = 1;
 

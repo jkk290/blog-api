@@ -16,6 +16,21 @@ async function getPublishedPosts() {
     });
 };
 
+async function getPostById(postId) {
+    return await prisma.post.findUnique({
+        where: {
+            id: postId
+        },
+        include: {
+            postAuthor: {
+                select: {
+                    username: true
+                }
+            }
+        }
+    });
+};
+
 async function postPosts(post) {
     const data = {
         title: post.title,
@@ -170,6 +185,7 @@ async function deleteUsers(userId) {
 
 module.exports = {
     getPublishedPosts,
+    getPostById,
     postPosts,
     putPosts,
     deletePosts,

@@ -12,7 +12,7 @@ postsRouter.put('/:postId/comments/:commentId', requireAuth, commentsController.
 postsRouter.get('/:postId/comments', commentsController.getComments);
 
 postsRouter.post('/:postId/comments', requireAuth, commentsController.postComments);
-
+postsRouter.get('/:postId', postsController.getPost);
 postsRouter.put('/:postId', requireAuth, postsController.putPosts);
 postsRouter.delete('/:postId', requireAuth, postsController.deletePosts);
 postsRouter.get('/', postsController.getPublishedPosts);
