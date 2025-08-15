@@ -23,7 +23,7 @@ exports.loginPost = (req, res, next) => {
         const token = jwt.sign({
             sub: user.id,
             username: user.username
-        }, process.env.JWT_SECRET, { expiresIn: 60 * 15});
+        }, process.env.JWT_SECRET, { expiresIn: 60 * 60});
 
         return res.json({
             message: 'Log in successful',
