@@ -15,6 +15,29 @@ exports.getUsers = async (req, res) => {
     };
 };
 
+exports.getUserById = async (req, res) => {
+    try {
+        const user = await db.getUserById(parseInt(req.params.userId));
+
+        if (!user) {
+            res.status(404).json({
+                error: {
+                    message: `User ID ${req.params.userId} not found`
+                }
+            });
+        }
+
+        res.json(user);
+
+    } catch (error) {
+        res.status(500).json({
+            error: {
+                message: 'Unable to retrieve user'
+            }
+        });
+    };
+};
+
 exports.postUsers = async (req, res) => {
     try {
         const { firstName, lastName, username, email, password, confirmPassword } = req.body;
