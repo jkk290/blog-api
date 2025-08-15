@@ -15,8 +15,6 @@ exports.getComments = async (req, res) => {
 
 exports.postComments = async (req, res) => {
     try {
-        const authorId = 1;
-
         if ((req.body.commentText === undefined) || (req.body.commentText === '')) {
             return res.status(400).json({
                 error: {
@@ -27,7 +25,7 @@ exports.postComments = async (req, res) => {
 
         const comment = {
             text: req.body.commentText,
-            authorId: authorId,
+            authorId: parseInt(req.body.authorId),
             postId: parseInt(req.params.postId)
         }
 
