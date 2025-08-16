@@ -31,3 +31,9 @@ exports.loginPost = (req, res, next) => {
         });
     })(req, res, next);
 };
+
+exports.verifyGet = (req, res) => {
+    res.json({
+        valid: true
+    })
+}
