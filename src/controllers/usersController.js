@@ -83,6 +83,10 @@ exports.postUsers = async (req, res) => {
             password: hashedPw
         };
 
+        if (email === '') {
+            user.email = null
+        }
+
         const newUser = await db.postUsers(user);
         res.status(201).json({
             message: `${newUser.username} successfully created`
