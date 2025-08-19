@@ -1,5 +1,6 @@
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const db = require('../../storages/queries');
 
 exports.loginPost = (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
@@ -30,6 +31,38 @@ exports.loginPost = (req, res, next) => {
             token: token
         });
     })(req, res, next);
+};
+
+exports.verifyAdmin = async (req, res) => {
+
+    try {
+        const isAdmin = await db.verifyAdmin(req.body.username);
+
+        if (isAdmin === null) {
+            return res.status(404).json({
+                error: {
+                    message: `${req.body.user} not found`
+                }
+            });
+        };
+
+        if (isAdmin) {
+            return res.json({
+                admin: true
+            });
+        }
+
+        res.json({
+            admin: false
+        });    
+    } catch (error) {
+        res.status(500).json({
+            error: {
+                message: 'Unable to verify user is admin'
+            }
+        })
+    }
+    
 };
 
 exports.verifyGet = (req, res) => {

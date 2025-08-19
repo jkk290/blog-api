@@ -152,6 +152,18 @@ async function getUserById(userId) {
     return user;
 }
 
+async function verifyAdmin(username) {
+    const user = await prisma.user.findUnique({
+        where: {
+            username: username
+        },
+        select: {
+            isAdmin: true
+        }
+    });
+    return user.isAdmin;
+}
+
 async function postUsers(user) {
     const newUser = await prisma.user.create({
         data: {
@@ -204,6 +216,7 @@ module.exports = {
     getUsers,
     getUserByUsername,
     getUserById,
+    verifyAdmin,
     postUsers,
     putUsers,
     deleteUsers
