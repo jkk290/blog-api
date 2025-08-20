@@ -5,6 +5,7 @@ const commentsController = require('../controllers/commentsController');
 
 const postsRouter = Router();
 
+postsRouter.get('/unpublished', requireAuth, postsController.getUnpublishedPosts);
 postsRouter.delete('/:postId/comments/:commentId', requireAuth, commentsController.deleteComments);
 
 postsRouter.put('/:postId/comments/:commentId', requireAuth, commentsController.putComments);
