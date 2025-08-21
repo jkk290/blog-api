@@ -91,8 +91,10 @@ exports.postPosts = async (req, res) => {
 
 exports.publishPost = async (req, res) => {
     try {
-        await db.publishPost(parseInt(req.params.postId))
-        res.status(204)
+        const postId = parseInt(req.params.postId)
+        const isPublished = req.body.isPublished === 'true'
+        await db.publishPost(postId, isPublished)
+        res.sendStatus(204)
         
     } catch (error) {
         if ((error.name === 'PrismaClientKnownRequestError') && (error.message.includes('No record was found'))) {

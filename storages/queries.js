@@ -61,13 +61,13 @@ async function postPosts(post) {
     return newPost;
 };
 
-async function publishPost(postId) {
+async function publishPost(postId, isPublished) {
     return await prisma.post.update({
         where: {
             id: postId
         },
         data: {
-            isPublished: true
+            isPublished: isPublished
         }
     });
 };
