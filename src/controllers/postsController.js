@@ -89,6 +89,27 @@ exports.postPosts = async (req, res) => {
     }; 
 };
 
+exports.publishPost = async (req, res) => {
+    try {
+        await db.publishPost(parseInt(req.params.postId))
+        res.status(204)
+        
+    } catch (error) {
+        if ((error.name === 'PrismaClientKnownRequestError') && (error.message.includes('No record was found'))) {
+            return res.status(404).json({
+                error: {
+                    message: `No post found with ID ${req.params.postId}`
+                }
+            });
+        };
+        res.status(500).json({
+            error: {
+                message: 'Failed to publish post'
+            }
+        })
+    }
+}
+
 exports.putPosts = async (req, res) => {
     try {
         if ((req.body.postTitle === undefined) || (req.body.postTitle === '')) {
